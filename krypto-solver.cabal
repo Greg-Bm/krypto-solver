@@ -35,4 +35,20 @@ library
   build-depends:
                 base,
                 containers,
-                union-find-array,
+                deepseq,
+                union-find-array
+
+benchmark benchmark
+  type:               exitcode-stdio-1.0
+  default-extensions: ImportQualifiedPost
+  hs-source-dirs:     benchmark
+  main-is:            Main.hs
+  other-modules:      KSBench
+  build-depends:
+    , async           >=2.2.6 && <2.3
+    , base
+    , deepseq         >=1.4.8 && <1.6
+    , random
+    , tasty           >=1.5.4 && <1.6
+    , tasty-bench     >=0.5   && <0.6
+    , krypto-solver

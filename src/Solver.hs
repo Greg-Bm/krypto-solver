@@ -25,7 +25,7 @@ app' args = do
   let goal = read goalStr
   let s = solve nums (fromIntegral goal)
   let n = length s
-  putStrLn $ show n <> " unique solutions found."
+  putStrLn $ show n <> " unique solution" <> ['s'|n/=1] <> " found."
   forM_ s print
 
 exit :: SomeException -> IO ()

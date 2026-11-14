@@ -1,9 +1,11 @@
-module Relation where
+module Relation (relation) where
 
 import Expr
 
-relation = recurseRelation $ applyAll [addAssoc, addComm, mulAssoc, mulComm, subAssoc, subAntiComm, divAssoc, divAntiComm, addIdentity, mulIdentity]
 
+-- the transitive symmetric reflexive closure of this relation
+-- is an equivalence relation for highly similar solutions.
+relation = recurseRelation $ applyAll [addAssoc, addComm, mulAssoc, mulComm, subAssoc, subAntiComm, divAssoc, divAntiComm, addIdentity, mulIdentity]
 
 -- These rules are purely structural.
 addAssoc ((a :+: b) :+: c) = [a :+: (b :+: c)]

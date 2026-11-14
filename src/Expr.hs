@@ -1,9 +1,13 @@
-{-# LANGUAGE LambdaCase, StrictData #-}
+{-# LANGUAGE LambdaCase, StrictData, DeriveGeneric, DeriveAnyClass #-}
 module Expr (Expr (..), gen, eval) where
 
 import Data.Ratio
 import Control.Monad
 import EquivRep
+import Control.Applicative
+import GHC.Generics (Generic)
+import GHC.Generics qualified
+import Control.DeepSeq (NFData (..))
 
 data Expr
   = Lit Int
@@ -11,7 +15,9 @@ data Expr
   | Expr :-: Expr
   | Expr :*: Expr
   | Expr :/: Expr
-  deriving (Eq, Ord)
+  deriving (Eq, Ord, Generic)
+
+instance NFData Expr
 
 instance Show Expr where
   showsPrec p =
@@ -29,16 +35,15 @@ gen = gen' where
   gen' [a] = [Lit a]
   gen' xs = do
     (as, bs) <- partitions xs
-    a <- gen as
-    b <- gen bs
-    op <- [(:+:), (:-:), (:*:), (:/:)]
-    pure $ a `op` b
+    [(:+:), (:-:), (:*:), (:/:)] <*> (gen as) <*> (gen bs)
 
--- partition elements into 2 sublists with at least 1 element each. order not guaranteed to be preserved.
-partitions = filter (\(a,b) -> not (null a) && not (null b)) . go [] [] where
+-- ways to divide a list into 2 non-empty sublists. order is not necessarily preserved.
+partitions = filter isProperPartition . ($ []) . go [] [] where
   go a b = \case
-    [] -> [(a,b)]
-    x:xs -> go (x:a) b xs <> go a (x:b) xs
+    [] -> ((a,b) :)
+    x:xs -> go (x : a) b xs . go a (x:b) xs
+
+isProperPartition (a, b) = not (null a || null b)
 
 {-# INLINABLE eval #-}
 eval = \case
