@@ -3,8 +3,6 @@ module Expr (Expr (..), gen, eval) where
 
 import Data.Ratio
 import Control.Monad
-import GHC.Utils.Misc qualified
-import Data.MemoTrie
 import EquivRep
 
 data Expr

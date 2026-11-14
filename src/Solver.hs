@@ -1,5 +1,5 @@
 {-# LANGUAGE ScopedTypeVariables #-}
-module Solver where
+module Solver (solve, app) where
 
 import Expr
 import EquivRep
@@ -11,7 +11,7 @@ import Control.Exception
 
 solve nums goal = do
   let exprs = gen nums
-  let solves = filter ((== Just goal) . eval) exprs -- this is a bottleneck, per testing
+  let solves = filter ((== Just goal) . eval) exprs
   let reducedSolves = equivRep relation solves
   reducedSolves
 

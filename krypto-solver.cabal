@@ -35,9 +35,4 @@ library
   build-depends:
                 base,
                 containers,
-                ghc >= 9.10.3,
-                mtl,
-                transformers,
                 union-find-array,
-                parallel,
-                MemoTrie
