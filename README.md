@@ -12,9 +12,8 @@ The solver may use the operations '+', '-', '*' and '/'. It assumes that any rat
 
 ```
 $ cabal run krypto-solver -- [1,2,3,4] 24
-4 unique solutions found.
+3 unique solutions found.
 1 * 2 * 3 * 4
-2 * 3 * 4 / 1
 4 * (1 + 2 + 3)
 (1 + 3) * (2 + 4)
 ```
