@@ -1,0 +1,33 @@
+# Build directories
+dist
+dist-*
+cabal-dev
+.stack-work/
+.cabal-sandbox/
+.hsenv
+
+# Compiled & intermediate files
+*.o
+*.hi
+*.hie
+*.chi
+*.chs.h
+*.dyn_o
+*.dyn_hi
+
+# Local configuration & environments
+cabal.sandbox.config
+cabal.project.local
+cabal.project.local~
+.ghc.environment.*
+
+# Profiling, coverage, & test artifacts
+.hpc
+*.prof
+*.aux
+*.hp
+*.eventlog
+.HTF/
+
+# Language server & editor caches (optional)
+.hls/
